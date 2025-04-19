@@ -18,7 +18,7 @@ namespace LSC.OnlineCourse.API.Controllers
         private readonly ICourseService courseService;
         private readonly IAzureBlobStorageService blobStorageService;
 
-        //DI Below
+        //DI Below as constructor
         public CourseController(ICourseService courseService, IAzureBlobStorageService  blobStorageService)
         {
             this.courseService = courseService;
