@@ -62,7 +62,7 @@ namespace LSC.OnlineCourse.API
                   services.GetRequiredService<TelemetryConfiguration>(),
                   TelemetryConverter.Traces));
 
-                Log.Information("Starting the SmartLearnByKarthik API...");
+                Log.Information("Starting the OnlineCourseByRK API...");
 
                 #region AD B2C configuration
                 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -204,13 +204,13 @@ namespace LSC.OnlineCourse.API
 
                 app.UseRouting();
 
-                #region AD B2C
-                app.UseAuthentication();
-                app.UseAuthorization();
-                #endregion  AD B2C
+                //#region AD B2C
+                //app.UseAuthentication();
+                //app.UseAuthorization();
+                //#endregion  AD B2C
 
                 // SignalR middleware to map the ChatHub
-                app.MapHub<ChatHub>("/chathub");
+                //app.MapHub<ChatHub>("/chathub");
 
 
                 // Top-level route mapping for health checks
