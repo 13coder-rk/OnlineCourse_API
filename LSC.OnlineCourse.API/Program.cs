@@ -52,15 +52,15 @@ namespace LSC.OnlineCourse.API
 
                 builder.Services.AddApplicationInsightsTelemetry();
 
-                builder.Host.UseSerilog((context, services, loggerConfiguration) => loggerConfiguration
-                .ReadFrom.Configuration(context.Configuration)
-                .ReadFrom.Services(services)
-                .WriteTo.Console(new ExpressionTemplate(
-                    // Include trace and span ids when present.
-                    "[{@t:HH:mm:ss} {@l:u3}{#if @tr is not null} ({substring(@tr,0,4)}:{substring(@sp,0,4)}){#end}] {@m}\n{@x}"))
-                .WriteTo.ApplicationInsights(
-                  services.GetRequiredService<TelemetryConfiguration>(),
-                  TelemetryConverter.Traces));
+                //builder.Host.UseSerilog((context, services, loggerConfiguration) => loggerConfiguration
+                //.ReadFrom.Configuration(context.Configuration)
+                //.ReadFrom.Services(services)
+                //.WriteTo.Console(new ExpressionTemplate(
+                //    // Include trace and span ids when present.
+                //    "[{@t:HH:mm:ss} {@l:u3}{#if @tr is not null} ({substring(@tr,0,4)}:{substring(@sp,0,4)}){#end}] {@m}\n{@x}"))
+                //.WriteTo.ApplicationInsights(
+                //  services.GetRequiredService<TelemetryConfiguration>(),
+                //  TelemetryConverter.Traces));
 
                 Log.Information("Starting the OnlineCourseByRK API...");
 
@@ -214,33 +214,33 @@ namespace LSC.OnlineCourse.API
 
 
                 // Top-level route mapping for health checks
-                app.MapHealthChecks("/health", new HealthCheckOptions
-                {                   
-                    ResponseWriter = HealthCheckResponseWriter.WriteJsonResponse
-                });
+                //app.MapHealthChecks("/health", new HealthCheckOptions
+                //{                   
+                //    ResponseWriter = HealthCheckResponseWriter.WriteJsonResponse
+                //});
 
                 // Liveness probe
-                app.MapHealthChecks("/health/live", new HealthCheckOptions
-                {
-                    Predicate = _ => false, // No specific checks, just indicates the app is live
-                    ResponseWriter = async (context, report) =>
-                    {
-                        context.Response.ContentType = "application/json";
-                        var json = new
-                        {
-                            status = report.Status.ToString(),
-                            description = "Liveness check - the app is up"
-                        };
-                        await context.Response.WriteAsJsonAsync(json);
-                    }
-                });
+                //app.MapHealthChecks("/health/live", new HealthCheckOptions
+                //{
+                //    Predicate = _ => false, // No specific checks, just indicates the app is live
+                //    ResponseWriter = async (context, report) =>
+                //    {
+                //        context.Response.ContentType = "application/json";
+                //        var json = new
+                //        {
+                //            status = report.Status.ToString(),
+                //            description = "Liveness check - the app is up"
+                //        };
+                //        await context.Response.WriteAsJsonAsync(json);
+                //    }
+                //});
 
                 // Readiness probe
-                app.MapHealthChecks("/health/ready", new HealthCheckOptions
-                {
-                    Predicate = check => check.Tags.Contains("ready"), // Only run checks tagged as "ready"
-                    ResponseWriter = HealthCheckResponseWriter.WriteJsonResponse
-                });
+                //app.MapHealthChecks("/health/ready", new HealthCheckOptions
+                //{
+                //    Predicate = check => check.Tags.Contains("ready"), // Only run checks tagged as "ready"
+                //    ResponseWriter = HealthCheckResponseWriter.WriteJsonResponse
+                //});
 
 
                 app.MapControllers();
