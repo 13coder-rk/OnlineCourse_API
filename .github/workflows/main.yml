@@ -29,7 +29,7 @@ jobs:
         run: dotnet build ./LSC.OnlineCourse.API.sln --configuration Release --no-restore
         
       - name: Publish
-        run: dotnet publish ./LSC.OnlineCourse.API.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        run: dotnet publish ./LSC.OnlineCourse.API.sln --configuration Release -r win-x86 --self-contained true -o ./publish '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
       - name: Deployment
         uses: azure/webapps-deploy@v2
